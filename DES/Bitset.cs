@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -295,6 +296,33 @@ namespace DES
                 input /= 2;
             }
         }
+
+        /// <summary>
+        /// 将OldBitset转化为BigInteger输出
+        /// </summary>
+        /// <returns>转化后结果</returns>
+        public BigInteger ToBigIntegerValue()
+        {
+            BigInteger result = 0;
+            for (int i = 0; i < data.Length; ++i)
+            {
+                result = result * 2 + (data[i] ? 1 : 0);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 从BigInteger构造OldBitset数据
+        /// </summary>
+        /// <param name="input">输入的整型</param>
+        public void PasteBigInteger(BigInteger input)
+        {
+            for (int i = data.Length - 1; i >= 0; --i)
+            {
+                data[i] = input % 2 == 1;
+                input /= 2;
+            }
+        }
         /// <summary>
         /// 将两段OldBitset中的01串进行拼接并返回新构造的OldBitset
         /// </summary>
@@ -395,5 +423,6 @@ namespace DES
             }
             return result;
         }
+
     }
 }
